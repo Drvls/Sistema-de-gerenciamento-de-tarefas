@@ -60,8 +60,10 @@ Após executar, siga as instruções no terminal:
 
 ## ✅ Atualizações futuras
 
+- [ ] Corrigir saída de data limite ao listar
 - [ ] Adicionar verificadores (try-catch) para evitar erros de entrada e execução.
-
+- [ ] Data mínima para tarefa (verificar com a data atual)
+- [ ] Importação e exportação de tarefas via json e txt
 ---
 
 ## 🛠 Tecnologias Usadas
