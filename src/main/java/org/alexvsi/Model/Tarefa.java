@@ -35,13 +35,14 @@ public class Tarefa {
 
     @Override
     public String toString() {
+        DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String msg = status ? "Concluido" : "Pendente";
         return "\nID: " + id
                 + "\nTítulo: " + titulo
                 + "\nDescrição: " + descricao
                 + "\nPrioridade: " + prioridade
                 + "\nStatus: " + msg
-                + "\nData limite: " + dataLimite;
+                + "\nData limite: " + dataLimite.format(dataFormato);
     }
 
     public void concluirTarefa(){
