@@ -3,7 +3,6 @@ package org.alexvsi;
 import org.alexvsi.Model.Prioridade;
 import org.alexvsi.Model.Tarefa;
 
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -26,35 +25,30 @@ public class Main {
             System.out.println("[5] Estatísticas");
             System.out.println("[6] Sair do programa");
 
-            try{
-                int opcao = Integer.parseInt(sc.nextLine());
-                switch (opcao) {
-                    case 1:
-                        adicionarTarefa(sc, tarefas);
-                        break;
-                    case 2:
-                        listarTarefas(tarefas);
-                        break;
-                    case 3:
-                        concluirTarefa(sc, tarefas);
-                        break;
-                    case 4:
-                        removerTarefa(sc, tarefas);
-                        break;
-                    case 5:
-                        mostrarEstatisticas(tarefas);
-                        break;
-                    case 6:
-                        System.out.println("\nObrigado por utilizar nosso programa.");
-                        rodando = false;
-                        break;
-                    default:
-                        System.out.println("Você deve escolher uma opção de 1 a 6");
-                        break;
-                }
-            }
-            catch (NumberFormatException e){
-                System.out.println("Você deve digitar um número válido");
+            int opcao = validarEntradaNumero(sc,"Você deve digitar um número válido");
+            switch (opcao) {
+                case 1:
+                    adicionarTarefa(sc, tarefas);
+                    break;
+                case 2:
+                    listarTarefas(tarefas);
+                    break;
+                case 3:
+                    concluirTarefa(sc, tarefas);
+                    break;
+                case 4:
+                    removerTarefa(sc, tarefas);
+                    break;
+                case 5:
+                    mostrarEstatisticas(tarefas);
+                    break;
+                case 6:
+                    System.out.println("\nObrigado por utilizar nosso programa.");
+                    rodando = false;
+                    break;
+                default:
+                    System.out.println("Você deve escolher uma opção de 1 a 6");
+                    break;
             }
         }
     }
@@ -68,52 +62,43 @@ public class Main {
         String descricao = sc.nextLine();
 
         Prioridade prioridade = null;
-        do{
-            System.out.println("\nInforme a prioridade da tarefa");
-            System.out.println("[1] Alta prioridade");
-            System.out.println("[2] Média prioridade");
-            System.out.println("[3] Baixa prioridade");
+        System.out.println("\nInforme a prioridade da tarefa");
+        System.out.println("[1] Alta prioridade");
+        System.out.println("[2] Média prioridade");
+        System.out.println("[3] Baixa prioridade");
 
-            try{
-                int opcaoPrioridade = Integer.parseInt(sc.nextLine());
-                switch(opcaoPrioridade){
-                    case 1:
-                        prioridade = Prioridade.ALTA;
-                        break;
-                    case 2:
-                        prioridade = Prioridade.MEDIA;
-                        break;
-                    case 3:
-                        prioridade = Prioridade.BAIXA;
-                        break;
-                    default:
-                        System.out.println("Deve escolher entre 1 a 3\n");
-                        break;
-                }
-            }
-            catch (NumberFormatException e){
-                System.out.println("Você deve digitar um número válido\n");
-            }
+        int opcaoPrioridade = validarEntradaNumero(sc, "Você deve digitar um número válido");
+        switch(opcaoPrioridade){
+            case 1:
+                prioridade = Prioridade.ALTA;
+                break;
+            case 2:
+                prioridade = Prioridade.MEDIA;
+                break;
+            case 3:
+                prioridade = Prioridade.BAIXA;
+                break;
+            default:
+                System.out.println("Deve escolher entre 1 a 3\n");
+                break;
         }
-        while(prioridade == null);
+
         LocalDate data;
         System.out.println("Informe a data limite da tarefa (ex: 25/06/2025)");
-        do {
-            try{
-                String dataEntrada = sc.nextLine();
+
+        while(true){
+            String dataEntrada = sc.nextLine();
+            if(dataEntrada.matches("\\d{2}/\\d{2}/\\d{4}/}")){
                 data = LocalDate.parse(dataEntrada, dataFormato);
                 break;
             }
-            catch (DateTimeParseException e){
+            else{
                 System.out.println("Deve inserir uma data válida");
             }
         }
-        while(true);
 
         tarefas.add(new Tarefa(titulo, descricao, prioridade, data));
-
         System.out.println("\nTarefa adicionada\n");
-
     }
 
     public static void listarTarefas(List<Tarefa> tarefas){
@@ -129,27 +114,18 @@ public class Main {
 
     public static void concluirTarefa(Scanner sc, List<Tarefa> tarefas){
         boolean achou = false;
-
-        do {
-            try{
-                System.out.println("Informe o ID da tarefa que deseja concluir");
-                int id = Integer.parseInt(sc.nextLine());
-                for (Tarefa i : tarefas) {
-                    if (i.getId() == id) {
-                        i.concluirTarefa();
-                        achou = true;
-                        System.out.println("O status da tarefa mudou para concluido");
-                    }
-                }
-                if(!achou){
-                    System.out.println("O ID informado é inválido");
-                }
-            }
-            catch (NumberFormatException e){
-                System.out.println("Você deve digitar um ID válido\n");
+        System.out.println("Informe o ID da tarefa que deseja concluir");
+        int id = validarEntradaNumero(sc,"Você deve digitar um IsD válido");
+        for (Tarefa i : tarefas) {
+            if (i.getId() == id) {
+                i.concluirTarefa();
+                achou = true;
+                System.out.println("O status da tarefa mudou para concluido");
             }
         }
-        while(!achou);
+        if(!achou){
+            System.out.println("O ID informado é inválido");
+        }
     }
 
     public static void removerTarefa(Scanner sc, List<Tarefa> tarefas){
@@ -193,5 +169,17 @@ public class Main {
         System.out.println("Tarefas pendentes: " + tarefasPendentes);
         System.out.println("Tarefas concluidas: " + tarefasConcluidas);
         System.out.println("Tarefas de alta prioridade: " + tarefasAltaPrioridade);
+    }
+
+    public static int validarEntradaNumero(Scanner sc, String msg){
+        while(true){
+            String entradaNumero = sc.nextLine();
+            if(entradaNumero.matches("\\d+")){
+                return Integer.parseInt(entradaNumero);
+            }
+            else{
+                System.out.println(msg);
+            }
+        }
     }
 }
