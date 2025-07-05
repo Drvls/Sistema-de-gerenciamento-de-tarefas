@@ -115,7 +115,7 @@ public class Main {
     public static void concluirTarefa(Scanner sc, List<Tarefa> tarefas){
         boolean achou = false;
         System.out.println("Informe o ID da tarefa que deseja concluir");
-        int id = validarEntradaNumero(sc,"Você deve digitar um IsD válido");
+        int id = validarEntradaNumero(sc,"Você deve digitar um ID válido");
         for (Tarefa i : tarefas) {
             if (i.getId() == id) {
                 i.concluirTarefa();
@@ -131,22 +131,19 @@ public class Main {
     public static void removerTarefa(Scanner sc, List<Tarefa> tarefas){
         boolean achou = false;
 
-        do {
-            System.out.println("Informe o ID da tarefa que deseja remover");
-            int id = sc.nextInt();
+        System.out.println("Informe o ID da tarefa que deseja remover");
+        int id = validarEntradaNumero(sc, "Você deve digitar um ID válido");
 
-            for(int i = 0; i < tarefas.size(); i++){
-                if(tarefas.get(i).getId() == id){
-                    tarefas.remove(i);
-                    achou = true;
-                    break;
-                }
-            }
-            if(!achou){
-                System.out.println("O ID informado é inválido");
+        for(int i = 0; i < tarefas.size(); i++){
+            if(tarefas.get(i).getId() == id){
+                tarefas.remove(i);
+                achou = true;
+                break;
             }
         }
-        while(!achou);
+        if(!achou){
+             System.out.println("O ID informado é inválido");
+        }
     }
 
     public static void mostrarEstatisticas(List<Tarefa> tarefas){

@@ -61,11 +61,11 @@ Após executar, siga as instruções no terminal:
 ##  Atualizações futuras
 
 - ✅ Corrigir saída de data limite ao listar
-- [ ] Adicionar verificadores (try-catch) para evitar erros de entrada e execução.
+- ✅ Adicionar validações para evitar erros de entrada e execução.
 - [ ] Data mínima para tarefa (verificar com a data atual)
 - [ ] Importação e exportação de tarefas via json e txt
--  [ ] Salvar caminho de exportação
--  [ ] Verificar arquivo existente com o mesmo nome
+- [ ] Salvar caminho de exportação
+- [ ] Verificar arquivo existente com o mesmo nome
 ---
 
 ## Tecnologias Usadas 🛠
