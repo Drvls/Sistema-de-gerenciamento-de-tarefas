@@ -9,11 +9,11 @@ public class Tarefa {
     private int id;
     private String titulo;
     private String descricao;
-    private String prioridade;
+    private Prioridade prioridade;
     private LocalDate dataLimite;
     private Boolean status = false;
 
-    public Tarefa(String titulo, String descricao, String prioridade, LocalDate dataLimite) {
+    public Tarefa(String titulo, String descricao, Prioridade prioridade, LocalDate dataLimite) {
         this.id = proximoId++;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -25,7 +25,7 @@ public class Tarefa {
         return id;
     }
 
-    public String getPrioridade(){
+    public Prioridade getPrioridade(){
         return prioridade;
     }
 
