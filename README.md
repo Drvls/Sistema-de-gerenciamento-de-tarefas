@@ -8,10 +8,9 @@
 - [Descrição](#-descrição)
 - [Instalação](#-instalação)
 - [Como Usar](#-como-usar)
-- [Funcionalidades](#-funcionalidades)
+- [Atualizações Futuras](#-atualizações-futuras)
 - [Tecnologias Usadas](#-tecnologias-usadas)
 - [Contribuição](#-contribuição)
-- [Licença](#-licença)
 - [Autor](#-autor)
 
 ---
