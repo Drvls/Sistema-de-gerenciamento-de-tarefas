@@ -16,7 +16,7 @@
 
 ---
 
-## Descrição 🧾
+##  Descrição 🧾
 
 Este projeto é um programa feito em Java, com o objetivo de servir como um sistema de gerenciamento de tarefas, sendo utilizado em cli/terminal.
 
@@ -24,7 +24,7 @@ Permite adicionar, remover, listar e concluir tarefas.
 
 ---
 
-## Instalação 🚀
+##  Instalação 🚀
 
 1. Clone o repositório:
    ```bash
@@ -43,7 +43,7 @@ Permite adicionar, remover, listar e concluir tarefas.
    java org/alexvsi/Main
    ```
 
-## Como Usar 💡
+##  Como Usar 💡
 
 Após executar, siga as instruções no terminal:  
 
@@ -62,13 +62,13 @@ Após executar, siga as instruções no terminal:
 
 - ✅ Corrigir saída de data limite ao listar
 - ✅ Adicionar validações para evitar erros de entrada e execução.
-- [ ] Data mínima para tarefa (verificar com a data atual)
+- ✅ Data mínima para tarefa (verificar com a data atual)
 - [ ] Importação e exportação de tarefas via json e txt
 - [ ] Salvar caminho de exportação
 - [ ] Verificar arquivo existente com o mesmo nome
 ---
 
-## Tecnologias Usadas 🛠
+##  Tecnologias Usadas 🛠
 
 - Java 21 LTS
 - Intellij
@@ -82,7 +82,7 @@ Até o momento não aceitarei contribuições por ser um projeto de autodesenvol
 
 ---
 
-## Autor 👤
+##  Autor 👤
 
 - Nome: Alexsandro Vinicius
 - LinkedIn: [https://www.linkedin.com/in/sam-vinicius/](https://www.linkedin.com/in/sam-vinicius/)
