@@ -43,7 +43,7 @@ public class Main {
                     mostrarEstatisticas(tarefas);
                     break;
                 case 6:
-                    System.out.println("\nObrigado por utilizar nosso programa.");
+                    System.out.println("Obrigado por utilizar nosso programa.");
                     rodando = false;
                     break;
                 default:
@@ -88,12 +88,18 @@ public class Main {
 
         while(true){
             String dataEntrada = sc.nextLine();
-            if(dataEntrada.matches("\\d{2}/\\d{2}/\\d{4}/}")){
+            LocalDate hoje = LocalDate.now();
+            if(dataEntrada.matches("\\d{2}/\\d{2}/\\d{4}")) {
                 data = LocalDate.parse(dataEntrada, dataFormato);
-                break;
+                if(data.isBefore(hoje)){
+                    System.out.println("\nA data deve ser a partir de hoje");
+                }
+                else{
+                    break;
+                }
             }
             else{
-                System.out.println("Deve inserir uma data válida");
+                System.out.println("\nDeve inserir uma data válida");
             }
         }
 
