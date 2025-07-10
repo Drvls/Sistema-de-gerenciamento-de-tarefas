@@ -1,5 +1,6 @@
 package org.alexvsi.dao;
 
+import org.alexvsi.enums.StatusTarefa;
 import org.alexvsi.model.Tarefa;
 import org.alexvsi.db.DB;
 
@@ -78,4 +79,21 @@ public class TarefaDAO {
         }
     }
 
+    public static void concluirTarefa(int id){
+        Connection connection = null;
+        PreparedStatement st = null;
+        String sql = "UPDATE tarefas SET status = ? WHERE TarefaID = ?";
+
+        try{
+            connection = DB.getConnection();
+            st = connection.prepareStatement(sql);
+
+            st.setString(1, StatusTarefa.CONCLUIDO.name());
+            st.setInt(2, id);
+            st.executeUpdate();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

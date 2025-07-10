@@ -130,19 +130,9 @@ public class Main {
     }
 
     public static void concluirTarefa(Scanner sc, List<Tarefa> tarefas){
-        boolean achou = false;
         System.out.println("Informe o ID da tarefa que deseja concluir");
         int id = validarEntradaNumero(sc,"Você deve digitar um ID válido");
-        for (Tarefa i : tarefas) {
-            if (i.getId() == id) {
-                i.concluirTarefa();
-                achou = true;
-                System.out.println("O status da tarefa mudou para concluido");
-            }
-        }
-        if(!achou){
-            System.out.println("O ID informado é inválido");
-        }
+        TarefaDAO.concluirTarefa(id);
     }
 
     public static void removerTarefa(Scanner sc, List<Tarefa> tarefas){
