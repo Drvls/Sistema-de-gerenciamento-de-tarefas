@@ -142,9 +142,11 @@ public class Main {
     }
 
     public static void mostrarEstatisticas(List<Tarefa> tarefas){
-        int tarefasPendentes = 0;
-        int tarefasConcluidas = 0;
-        int tarefasAltaPrioridade = 0;
+        int[] dados = TarefaDAO.mostrarEstatisticas();
+        int quantidadeDeTarefas = dados[0];
+        int tarefasConcluidas = dados[1];
+        int tarefasPendentes = dados[2];
+        int tarefasAltaPrioridade = dados[3];
 
         for (Tarefa tarefa : tarefas) {
             if (tarefa.getStatus().equals(StatusTarefa.PENDENTE)) {
@@ -157,10 +159,10 @@ public class Main {
             }
         }
 
-        System.out.println("Quantidade de tarefas: " + tarefas.size());
+        System.out.println("\nQuantidade de tarefas: " + quantidadeDeTarefas);
         System.out.println("Tarefas pendentes: " + tarefasPendentes);
         System.out.println("Tarefas concluidas: " + tarefasConcluidas);
-        System.out.println("Tarefas de alta prioridade: " + tarefasAltaPrioridade);
+        System.out.println("Tarefas de alta prioridade: " + tarefasAltaPrioridade + "\n");
     }
 
     public static int validarEntradaNumero(Scanner sc, String msg){

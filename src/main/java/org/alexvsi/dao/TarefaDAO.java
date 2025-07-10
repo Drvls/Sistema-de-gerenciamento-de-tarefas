@@ -96,4 +96,33 @@ public class TarefaDAO {
             e.printStackTrace();
         }
     }
+
+    public static int[] mostrarEstatisticas(){
+        Connection connection = null;
+        Statement st = null;
+        String sql = "SELECT " +
+                "COUNT(status) as Total, " +
+                "COUNT(CASE WHEN status = 'concluido' THEN 1 END) as Completo, " +
+                "COUNT(CASE WHEN status = 'pendente' THEN 1 END) as Incompleto, " +
+                "COUNT(CASE WHEN Prioridade = 'ALTA' THEN 1 END) as AltaPrioridade " +
+                "FROM tarefas";
+
+        int[] dados = new int[4];
+        try{
+            connection = DB.getConnection();
+            st = connection.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                dados[0] = rs.getInt("Total");
+                dados[1] = rs.getInt("Completo");
+                dados[2] = rs.getInt("Incompleto");
+                dados[3] = rs.getInt("AltaPrioridade");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return dados;
+    }
 }
