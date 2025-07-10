@@ -1,4 +1,4 @@
-package org.alexvsi.Model;
+package org.alexvsi.enums;
 
 public enum Prioridade {
     ALTA,

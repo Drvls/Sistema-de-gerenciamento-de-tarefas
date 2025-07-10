@@ -1,4 +1,4 @@
-package db;
+package org.alexvsi.db;
 
 import java.io.FileInputStream;
 import java.io.IOException;

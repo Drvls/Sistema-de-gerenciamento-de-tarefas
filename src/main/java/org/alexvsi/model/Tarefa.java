@@ -1,4 +1,7 @@
-package org.alexvsi.Model;
+package org.alexvsi.model;
+
+import org.alexvsi.enums.Prioridade;
+import org.alexvsi.enums.StatusTarefa;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +14,7 @@ public class Tarefa {
     private String descricao;
     private Prioridade prioridade;
     private LocalDate dataLimite;
-    private Boolean status = false;
+    private StatusTarefa statusTarefa;
 
     public Tarefa(String titulo, String descricao, Prioridade prioridade, LocalDate dataLimite) {
         this.id = proximoId++;
@@ -19,33 +22,45 @@ public class Tarefa {
         this.descricao = descricao;
         this.prioridade = prioridade;
         this.dataLimite = dataLimite;
+        this.statusTarefa = StatusTarefa.PENDENTE;
     }
 
     public int getId(){
         return id;
     }
 
+    public String getTitulo(){
+        return titulo;
+    }
+
+    public String getDescricao(){
+        return descricao;
+    }
+
     public Prioridade getPrioridade(){
         return prioridade;
     }
 
-    public boolean getStatus(){
-        return status;
+    public LocalDate getDataLimite(){
+        return dataLimite;
+    }
+
+    public StatusTarefa getStatus(){
+        return statusTarefa;
     }
 
     @Override
     public String toString() {
         DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String msg = status ? "Concluido" : "Pendente";
         return "\nID: " + id
                 + "\nTítulo: " + titulo
                 + "\nDescrição: " + descricao
                 + "\nPrioridade: " + prioridade
-                + "\nStatus: " + msg
+                + "\nStatus: " + statusTarefa
                 + "\nData limite: " + dataLimite.format(dataFormato);
     }
 
     public void concluirTarefa(){
-        status = true;
+        statusTarefa = StatusTarefa.CONCLUIDO;
     }
 }

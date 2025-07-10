@@ -1,7 +1,9 @@
 package org.alexvsi;
 
-import org.alexvsi.Model.Prioridade;
-import org.alexvsi.Model.Tarefa;
+import org.alexvsi.enums.Prioridade;
+import org.alexvsi.enums.StatusTarefa;
+import org.alexvsi.model.Tarefa;
+import org.alexvsi.dao.TarefaDAO;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -17,10 +19,11 @@ public class Main {
     public static void iniciarAplicacao(){
         Scanner sc = new Scanner(System.in);
         List<Tarefa> tarefas = new ArrayList<>();
+        //TarefaDAO tarefaDAO = new TarefaDAO();
         boolean rodando = true;
 
         while(rodando) {
-            System.out.println("\nEscolha umas das opções abaixo");
+            System.out.println("Escolha umas das opções abaixo");
             System.out.println("[1] Adicionar uma nova tarefa");
             System.out.println("[2] Listar tarefas existentes");
             System.out.println("[3] Marcar tarefa como concluída");
@@ -54,6 +57,7 @@ public class Main {
                     break;
             }
         }
+        sc.close();
     }
 
     public static void adicionarTarefa(Scanner sc, List<Tarefa> tarefas){
@@ -107,6 +111,7 @@ public class Main {
         }
 
         tarefas.add(new Tarefa(titulo, descricao, prioridade, data));
+        TarefaDAO.adicionarTarefa(new Tarefa(titulo, descricao, prioridade, data));
         System.out.println("\nTarefa adicionada\n");
     }
 
@@ -161,7 +166,7 @@ public class Main {
         int tarefasAltaPrioridade = 0;
 
         for (Tarefa tarefa : tarefas) {
-            if (!tarefa.getStatus()) {
+            if (tarefa.getStatus().equals(StatusTarefa.PENDENTE)) {
                 tarefasPendentes++;
             } else {
                 tarefasConcluidas++;
