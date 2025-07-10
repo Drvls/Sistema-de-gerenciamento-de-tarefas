@@ -70,7 +70,7 @@ Após executar, siga as instruções no terminal:
 
 ## 🛠 Tecnologias Usadas
 
-- Java 21 LTS ☕ 
+- Java 21 LTS ☕
 - Intellij
 - Git e GitHub
 
