@@ -110,22 +110,11 @@ public class Main {
             }
         }
 
-        //tarefas.add(new Tarefa(titulo, descricao, prioridade, data));
         TarefaDAO.adicionarTarefa(new Tarefa(titulo, descricao, prioridade, data));
         System.out.println("\nTarefa adicionada\n");
     }
 
     public static void listarTarefas(List<Tarefa> tarefas){
-        /*
-        if(!tarefas.isEmpty()){
-            for(Tarefa i : tarefas){
-                System.out.println(i);
-            }
-        }
-        else{
-            System.out.println("A lista está vazia");
-        }
-         */
         DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         List<Tarefa> task = TarefaDAO.listarTarefas();
 
@@ -157,21 +146,9 @@ public class Main {
     }
 
     public static void removerTarefa(Scanner sc, List<Tarefa> tarefas){
-        boolean achou = false;
-
         System.out.println("Informe o ID da tarefa que deseja remover");
         int id = validarEntradaNumero(sc, "Você deve digitar um ID válido");
-
-        for(int i = 0; i < tarefas.size(); i++){
-            if(tarefas.get(i).getId() == id){
-                tarefas.remove(i);
-                achou = true;
-                break;
-            }
-        }
-        if(!achou){
-             System.out.println("O ID informado é inválido");
-        }
+        TarefaDAO.removerTarefa(id);
     }
 
     public static void mostrarEstatisticas(List<Tarefa> tarefas){

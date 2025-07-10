@@ -19,7 +19,7 @@ public class TarefaDAO {
                 + "(?, ?, ?, ?, ?, ?)";
         try{
             connection = DB.getConnection();
-            st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st = connection.prepareStatement(sql);
 
             st.setInt(1, tarefa.getId());
             st.setString(2, tarefa.getTitulo());
@@ -28,19 +28,7 @@ public class TarefaDAO {
             st.setDate(5, java.sql.Date.valueOf(tarefa.getDataLimite()));
             st.setString(6, tarefa.getStatus().name());
 
-            int infoUpdated = st.executeUpdate();
-
-            if(infoUpdated > 0){
-                ResultSet rs = st.getGeneratedKeys();
-                while (rs.next()){
-                    int i = rs.getInt(1);
-                    System.out.println("Tarefa adicionada. ID da tarefa: " + i);
-                }
-            }
-            else{
-                System.out.println("Nenhuma info atualizada");
-            }
-
+            st.executeUpdate();
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -72,6 +60,22 @@ public class TarefaDAO {
             e.printStackTrace();
         }
         return tarefas;
+    }
+
+    public static void removerTarefa(int id){
+        Connection connection = null;
+        PreparedStatement st = null;
+        String sql = "DELETE FROM tarefas WHERE TarefaId = ?";
+
+        try{
+            connection = DB.getConnection();
+            st = connection.prepareStatement(sql);
+
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

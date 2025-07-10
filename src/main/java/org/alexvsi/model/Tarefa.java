@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Tarefa {
-    private static int proximoId = 1;
 
     private int id;
     private String titulo;
@@ -16,8 +15,8 @@ public class Tarefa {
     private LocalDate dataLimite;
     private StatusTarefa statusTarefa;
 
+    // Constructor app > db
     public Tarefa(String titulo, String descricao, Prioridade prioridade, LocalDate dataLimite) {
-        this.id = proximoId++;
         this.titulo = titulo;
         this.descricao = descricao;
         this.prioridade = prioridade;
@@ -25,6 +24,7 @@ public class Tarefa {
         this.statusTarefa = StatusTarefa.PENDENTE;
     }
 
+    // Constructor db > app
     public Tarefa(int tarefaId, String titulo, String descricao, String prioridade, LocalDate data, String status){
         this.id = tarefaId;
         this.titulo = titulo;
