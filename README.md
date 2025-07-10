@@ -41,6 +41,7 @@ Permite adicionar, remover, listar e concluir tarefas.
    javac org/alexvsi/Main.java
    java org/alexvsi/Main
    ```
+---
 
 ## 💡 Como Usar
 
@@ -69,7 +70,7 @@ Após executar, siga as instruções no terminal:
 
 ## 🛠 Tecnologias Usadas
 
-- Java 21 LTS ☕
+- Java 21 LTS ☕ 
 - Intellij
 - Git e GitHub
 

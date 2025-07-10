@@ -11,9 +11,12 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
     public static void main (String[] args){
+        iniciarAplicacao();
+    }
+
+    public static void iniciarAplicacao(){
         Scanner sc = new Scanner(System.in);
         List<Tarefa> tarefas = new ArrayList<>();
-
         boolean rodando = true;
 
         while(rodando) {
