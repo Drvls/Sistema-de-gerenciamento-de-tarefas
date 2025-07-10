@@ -69,7 +69,7 @@ public class Main {
         String descricao = sc.nextLine();
 
         Prioridade prioridade = null;
-        System.out.println("\nInforme a prioridade da tarefa");
+        System.out.println("Informe a prioridade da tarefa");
         System.out.println("[1] Alta prioridade");
         System.out.println("[2] Média prioridade");
         System.out.println("[3] Baixa prioridade");
@@ -110,12 +110,13 @@ public class Main {
             }
         }
 
-        tarefas.add(new Tarefa(titulo, descricao, prioridade, data));
+        //tarefas.add(new Tarefa(titulo, descricao, prioridade, data));
         TarefaDAO.adicionarTarefa(new Tarefa(titulo, descricao, prioridade, data));
         System.out.println("\nTarefa adicionada\n");
     }
 
     public static void listarTarefas(List<Tarefa> tarefas){
+        /*
         if(!tarefas.isEmpty()){
             for(Tarefa i : tarefas){
                 System.out.println(i);
@@ -123,6 +124,19 @@ public class Main {
         }
         else{
             System.out.println("A lista está vazia");
+        }
+         */
+        DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        List<Tarefa> task = TarefaDAO.listarTarefas();
+
+        for (Tarefa taref : task){
+            System.out.println("\nID: " + taref.getId()
+                    + "\nTitulo: " + taref.getTitulo()
+                    + "\nDescrição: " + taref.getDescricao()
+                    + "\nPrioridade: " + taref.getPrioridade()
+                    + "\nData limite: " + taref.getDataLimite().format(dataFormato)
+                    + "\nStatus: " + taref.getStatus() + "\n"
+                    );
         }
     }
 

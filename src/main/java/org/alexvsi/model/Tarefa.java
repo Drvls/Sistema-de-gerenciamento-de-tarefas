@@ -25,6 +25,15 @@ public class Tarefa {
         this.statusTarefa = StatusTarefa.PENDENTE;
     }
 
+    public Tarefa(int tarefaId, String titulo, String descricao, String prioridade, LocalDate data, String status){
+        this.id = tarefaId;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.prioridade = Prioridade.valueOf(prioridade);
+        this.dataLimite = data;
+        this.statusTarefa = StatusTarefa.valueOf(status);
+    }
+
     public int getId(){
         return id;
     }
