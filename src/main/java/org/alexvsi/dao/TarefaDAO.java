@@ -1,5 +1,6 @@
 package org.alexvsi.dao;
 
+import org.alexvsi.enums.Coluna;
 import org.alexvsi.enums.Prioridade;
 import org.alexvsi.enums.StatusTarefa;
 import org.alexvsi.model.Tarefa;
@@ -12,16 +13,14 @@ import java.util.List;
 
 public class TarefaDAO {
     public static void adicionarTarefa(Tarefa tarefa){
-        Connection connection = null;
-        PreparedStatement st = null;
         String sql = "INSERT INTO tarefas "
                 + "(TarefaId, Titulo, Descrição, Prioridade, DataLimite, Status) "
                 + "VALUES "
                 + "(?, ?, ?, ?, ?, ?)";
-        try{
-            connection = DB.getConnection();
-            st = connection.prepareStatement(sql);
-
+        try(
+                Connection connection = DB.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql);
+                ){
             st.setInt(1, tarefa.getId());
             st.setString(2, tarefa.getTitulo());
             st.setString(3, tarefa.getDescricao());
@@ -38,15 +37,13 @@ public class TarefaDAO {
 
     public static List<Tarefa> listarTarefas(){
         List<Tarefa> tarefas = new ArrayList<>();
-
-        Connection connection = null;
-        Statement st = null;
         String sql = "SELECT * FROM tarefas";
 
-        try{
-            connection = DB.getConnection();
-            st = connection.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+        try(
+                Connection connection = DB.getConnection();
+                Statement st = connection.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+                ){
             while(rs.next()){
                 tarefas.add(new Tarefa(rs.getInt("TarefaID"),
                         rs.getString("Titulo"),
@@ -56,6 +53,7 @@ public class TarefaDAO {
                         rs.getString("status")
                 ));
             }
+
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -64,14 +62,12 @@ public class TarefaDAO {
     }
 
     public static void removerTarefa(int id){
-        Connection connection = null;
-        PreparedStatement st = null;
         String sql = "DELETE FROM tarefas WHERE TarefaId = ?";
 
-        try{
-            connection = DB.getConnection();
-            st = connection.prepareStatement(sql);
-
+        try(
+                Connection connection = DB.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql);
+                ){
             st.setInt(1, id);
             st.executeUpdate();
         } catch (SQLException e) {
@@ -80,14 +76,12 @@ public class TarefaDAO {
     }
 
     public static void concluirTarefa(int id){
-        Connection connection = null;
-        PreparedStatement st = null;
         String sql = "UPDATE tarefas SET status = ? WHERE TarefaID = ?";
 
-        try{
-            connection = DB.getConnection();
-            st = connection.prepareStatement(sql);
-
+        try(
+                Connection connection = DB.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql);
+                ){
             st.setString(1, StatusTarefa.CONCLUIDO.name());
             st.setInt(2, id);
             st.executeUpdate();
@@ -98,8 +92,6 @@ public class TarefaDAO {
     }
 
     public static int[] mostrarEstatisticas(){
-        Connection connection = null;
-        Statement st = null;
         String sql = "SELECT " +
                 "COUNT(status) as Total, " +
                 "COUNT(CASE WHEN status = 'concluido' THEN 1 END) as Completo, " +
@@ -108,11 +100,11 @@ public class TarefaDAO {
                 "FROM tarefas";
 
         int[] dados = new int[4];
-        try{
-            connection = DB.getConnection();
-            st = connection.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-
+        try(
+                Connection connection = DB.getConnection();
+                Statement st = connection.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+                ){
             while(rs.next()){
                 dados[0] = rs.getInt("Total");
                 dados[1] = rs.getInt("Completo");
@@ -127,17 +119,13 @@ public class TarefaDAO {
     }
 
     public static boolean constaNoBD(int id){
-        Connection connection = null;
-        PreparedStatement st = null;
-        String sql = "SELECT COUNT(TarefaID) FROM tarefas WHERE TarefaID = ?";
-        ResultSet rs;
-
-        try{
-            connection = DB.getConnection();
-            st = connection.prepareStatement(sql);
+        String sql = "SELECT 1 FROM tarefas WHERE TarefaID = ?";
+        try(
+                Connection connection = DB.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql)
+                ){
             st.setInt(1, id);
-
-            rs = st.executeQuery();
+            ResultSet rs = st.executeQuery();
             return rs.next();
         }
         catch(SQLException e){
@@ -147,14 +135,12 @@ public class TarefaDAO {
     }
 
     public static void atualizarTitulo(String titulo, int id) {
-        Connection connection = null;
-        PreparedStatement st = null;
         String sql = "UPDATE tarefas SET Titulo = ? WHERE TarefaID = ?";
 
-        try {
-            connection = DB.getConnection();
-            st = connection.prepareStatement(sql);
-
+        try (
+                Connection connection = DB.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql);
+                ){
             st.setString(1, titulo);
             st.setInt(2, id);
 
@@ -166,14 +152,12 @@ public class TarefaDAO {
     }
 
     public static void atualizarDescricao(String descricao, int id) {
-        Connection connection = null;
-        PreparedStatement st = null;
         String sql = "UPDATE tarefas SET Descrição = ? WHERE TarefaID = ?";
 
-        try {
-            connection = DB.getConnection();
-            st = connection.prepareStatement(sql);
-
+        try (
+                Connection connection = DB.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql);
+                ){
             st.setString(1, descricao);
             st.setInt(2, id);
 
@@ -185,14 +169,11 @@ public class TarefaDAO {
     }
 
     public static void atualizarPrioridade(Prioridade prioridade, int id) {
-        Connection connection = null;
-        PreparedStatement st = null;
         String sql = "UPDATE tarefas SET Prioridade = ? WHERE TarefaID = ?";
-
-        try {
-            connection = DB.getConnection();
-            st = connection.prepareStatement(sql);
-
+        try (
+                Connection connection = DB.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql);
+                ){
             st.setString(1, prioridade.name());
             st.setInt(2, id);
 
@@ -204,20 +185,45 @@ public class TarefaDAO {
     }
 
     public static void atualizarDataLimite(LocalDate data, int id) {
-        Connection connection = null;
-        PreparedStatement st = null;
         String sql = "UPDATE tarefas SET DataLimite = ? WHERE TarefaID = ?";
 
-        try {
-            connection = DB.getConnection();
-            st = connection.prepareStatement(sql);
-
+        try (
+                Connection connection = DB.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql);
+                ){
             st.setDate(1, Date.valueOf(data));
             st.setInt(2, id);
 
             st.executeUpdate();
         }
         catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void atualizar(Coluna coluna, Object valor, int id) {
+        String sql = "UPDATE tarefas SET " + coluna.getDescricao() + " = ? WHERE TarefaID = ?";
+
+        try (
+                Connection connection = DB.getConnection();
+                PreparedStatement st = connection.prepareStatement(sql);
+        ) {
+            if (valor instanceof String) {
+                st.setString(1, (String) valor);
+            }
+            else if(valor instanceof Integer){
+                st.setInt(1, (int) valor);
+            }
+            else if(valor instanceof LocalDate){
+                st.setDate(1, Date.valueOf((LocalDate) valor));
+            }
+            else if(valor instanceof Enum<?>){
+                st.setString(1, valor.toString());
+            }
+
+            st.setInt(2, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

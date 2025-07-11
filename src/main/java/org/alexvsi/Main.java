@@ -1,5 +1,6 @@
 package org.alexvsi;
 
+import org.alexvsi.enums.Coluna;
 import org.alexvsi.enums.Prioridade;
 import org.alexvsi.model.Tarefa;
 import org.alexvsi.dao.TarefaDAO;
@@ -217,8 +218,8 @@ public class Main {
     public static void editarTitulo(Scanner sc, int id){
         System.out.println("\nDigite o novo título da tarefa");
         String titulo = sc.nextLine();
-
-        TarefaDAO.atualizarTitulo(titulo, id);
+        
+        TarefaDAO.atualizar(Coluna.TITULO, titulo, id);
         System.out.println("\nTítulo de tarefa atualizado\n");
     }
 
@@ -226,7 +227,7 @@ public class Main {
         System.out.println("\nDigite a nova descrição da tarefa");
         String descricao = sc.nextLine();
 
-        TarefaDAO.atualizarDescricao(descricao, id);
+        TarefaDAO.atualizar(Coluna.DESCRICAO, descricao, id);
         System.out.println("\nDescrição de tarefa atualizada\n");
     }
 
@@ -254,10 +255,9 @@ public class Main {
         }
 
         assert prioridade != null;
-        TarefaDAO.atualizarPrioridade(prioridade, id);
+        TarefaDAO.atualizar(Coluna.PRIORIDADE, prioridade, id);
         System.out.println("\nPrioridade de tarefa atualizada\n");
     }
-
 
     public static void editarData(Scanner sc, int id) {
         LocalDate data;
@@ -281,7 +281,7 @@ public class Main {
             }
         }
 
-        TarefaDAO.atualizarDataLimite(data, id);
+        TarefaDAO.atualizar(Coluna.DATA, data, id);
         System.out.println("\nData de tarefa atualizada\n");
     }
 

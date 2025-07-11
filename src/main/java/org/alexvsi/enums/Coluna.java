@@ -1,13 +1,14 @@
 package org.alexvsi.enums;
 
-public enum Prioridade {
-    ALTA("Alta"),
-    MEDIA("Média"),
-    BAIXA("Baixa");
+public enum Coluna {
+    TITULO("Titulo"),
+    DESCRICAO("Descrição"),
+    PRIORIDADE("Prioridade"),
+    DATA("DataLimite");
 
     private final String descricao;
 
-    Prioridade(String descricao){
+    Coluna(String descricao){
         this.descricao = descricao;
     }
 
