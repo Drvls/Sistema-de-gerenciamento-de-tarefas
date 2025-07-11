@@ -34,6 +34,10 @@ public class Tarefa {
         this.statusTarefa = StatusTarefa.valueOf(status);
     }
 
+    public Tarefa() {
+
+    }
+
     public int getId(){
         return id;
     }
@@ -42,16 +46,32 @@ public class Tarefa {
         return titulo;
     }
 
+    public void setTitulo(String titulo){
+        this.titulo = titulo;
+    }
+
     public String getDescricao(){
         return descricao;
+    }
+
+    public void setDescricao (String descricao){
+        this.descricao = descricao;
     }
 
     public Prioridade getPrioridade(){
         return prioridade;
     }
 
+    public void setPrioridade(Prioridade prioridade){
+        this.prioridade = prioridade;
+    }
+
     public LocalDate getDataLimite(){
         return dataLimite;
+    }
+
+    public void setDataLimite(LocalDate dataLimite){
+        this.dataLimite = dataLimite;
     }
 
     public StatusTarefa getStatus(){

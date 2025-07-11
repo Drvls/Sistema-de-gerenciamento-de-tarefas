@@ -5,7 +5,6 @@ import org.alexvsi.model.Tarefa;
 import org.alexvsi.db.DB;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,6 @@ public class TarefaDAO {
     public static void adicionarTarefa(Tarefa tarefa){
         Connection connection = null;
         PreparedStatement st = null;
-        SimpleDateFormat dataFormat = new SimpleDateFormat("dd/MM/yyyy");
         String sql = "INSERT INTO tarefas "
                 + "(TarefaId, Titulo, Descrição, Prioridade, DataLimite, Status) "
                 + "VALUES "
@@ -26,7 +24,7 @@ public class TarefaDAO {
             st.setString(2, tarefa.getTitulo());
             st.setString(3, tarefa.getDescricao());
             st.setString(4, tarefa.getPrioridade().name());
-            st.setDate(5, java.sql.Date.valueOf(tarefa.getDataLimite()));
+            st.setDate(5, Date.valueOf(tarefa.getDataLimite()));
             st.setString(6, tarefa.getStatus().name());
 
             st.executeUpdate();
@@ -124,5 +122,101 @@ public class TarefaDAO {
             e.printStackTrace();
         }
         return dados;
+    }
+
+    public static boolean constaNoBD(int id){
+        Connection connection = null;
+        PreparedStatement st = null;
+        String sql = "SELECT COUNT(TarefaID) FROM tarefas WHERE TarefaID = ?";
+        ResultSet rs;
+
+        try{
+            connection = DB.getConnection();
+            st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+
+            rs = st.executeQuery();
+            return rs.next();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static void atualizarTitulo(Tarefa tarefa, int id) {
+        Connection connection = null;
+        PreparedStatement st = null;
+        String sql = "UPDATE tarefas SET Titulo = ? WHERE TarefaID = ?";
+
+        try {
+            connection = DB.getConnection();
+            st = connection.prepareStatement(sql);
+
+            st.setString(1, tarefa.getTitulo());
+            st.setInt(2, id);
+
+            st.executeUpdate();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void atualizarDescricao(Tarefa tarefa, int id) {
+        Connection connection = null;
+        PreparedStatement st = null;
+        String sql = "UPDATE tarefas SET Descrição = ? WHERE TarefaID = ?";
+
+        try {
+            connection = DB.getConnection();
+            st = connection.prepareStatement(sql);
+
+            st.setString(1, tarefa.getDescricao());
+            st.setInt(2, id);
+
+            st.executeUpdate();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void atualizarPrioridade(Tarefa tarefa, int id) {
+        Connection connection = null;
+        PreparedStatement st = null;
+        String sql = "UPDATE tarefas SET Prioridade = ? WHERE TarefaID = ?";
+
+        try {
+            connection = DB.getConnection();
+            st = connection.prepareStatement(sql);
+
+            st.setString(1, tarefa.getPrioridade().name());
+            st.setInt(2, id);
+
+            st.executeUpdate();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void atualizarDataLimite(Tarefa tarefa, int id) {
+        Connection connection = null;
+        PreparedStatement st = null;
+        String sql = "UPDATE tarefas SET DataLimite = ? WHERE TarefaID = ?";
+
+        try {
+            connection = DB.getConnection();
+            st = connection.prepareStatement(sql);
+
+            st.setDate(1, Date.valueOf(tarefa.getDataLimite()));
+            st.setInt(2, id);
+
+            st.executeUpdate();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
