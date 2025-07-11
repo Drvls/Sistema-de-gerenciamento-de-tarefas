@@ -117,15 +117,19 @@ public class Main {
     public static void listarTarefas(){
         DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         List<Tarefa> task = TarefaDAO.listarTarefas();
-
-        for (Tarefa taref : task){
-            System.out.println("\nID: " + taref.getId()
-                    + "\nTitulo: " + taref.getTitulo()
-                    + "\nDescrição: " + taref.getDescricao()
-                    + "\nPrioridade: " + taref.getPrioridade()
-                    + "\nData limite: " + taref.getDataLimite().format(dataFormato)
-                    + "\nStatus: " + taref.getStatus() + "\n"
-            );
+        if(!task.isEmpty()){
+            for (Tarefa taref : task){
+                System.out.println("\nID: " + taref.getId()
+                        + "\nTitulo: " + taref.getTitulo()
+                        + "\nDescrição: " + taref.getDescricao()
+                        + "\nPrioridade: " + taref.getPrioridade()
+                        + "\nData limite: " + taref.getDataLimite().format(dataFormato)
+                        + "\nStatus: " + taref.getStatus() + "\n"
+                );
+            }
+        }
+        else{
+            System.out.println("A lista de tarefas está vazia");
         }
     }
 
@@ -213,21 +217,16 @@ public class Main {
     public static void editarTitulo(Scanner sc, int id){
         System.out.println("\nDigite o novo título da tarefa");
         String titulo = sc.nextLine();
-        Tarefa tarefa = new Tarefa();
 
-        tarefa.setTitulo(titulo);
-        TarefaDAO.atualizarTitulo(tarefa, id);
+        TarefaDAO.atualizarTitulo(titulo, id);
         System.out.println("\nTítulo de tarefa atualizado\n");
     }
 
     public static void editarDescricao(Scanner sc, int id){
         System.out.println("\nDigite a nova descrição da tarefa");
         String descricao = sc.nextLine();
-        Tarefa tarefa = new Tarefa();
 
-        tarefa.setDescricao(descricao);
-
-        TarefaDAO.atualizarDescricao(tarefa, id);
+        TarefaDAO.atualizarDescricao(descricao, id);
         System.out.println("\nDescrição de tarefa atualizada\n");
     }
 
@@ -254,10 +253,8 @@ public class Main {
                 break;
         }
 
-        Tarefa tarefa = new Tarefa();
-        tarefa.setPrioridade(prioridade);
-
-        TarefaDAO.atualizarPrioridade(tarefa, id);
+        assert prioridade != null;
+        TarefaDAO.atualizarPrioridade(prioridade, id);
         System.out.println("\nPrioridade de tarefa atualizada\n");
     }
 
@@ -284,10 +281,7 @@ public class Main {
             }
         }
 
-        Tarefa tarefa = new Tarefa();
-        tarefa.setDataLimite(data);
-
-        TarefaDAO.atualizarDataLimite(tarefa, id);
+        TarefaDAO.atualizarDataLimite(data, id);
         System.out.println("\nData de tarefa atualizada\n");
     }
 

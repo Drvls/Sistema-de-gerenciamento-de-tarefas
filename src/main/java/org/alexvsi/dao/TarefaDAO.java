@@ -1,10 +1,12 @@
 package org.alexvsi.dao;
 
+import org.alexvsi.enums.Prioridade;
 import org.alexvsi.enums.StatusTarefa;
 import org.alexvsi.model.Tarefa;
 import org.alexvsi.db.DB;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,7 +146,7 @@ public class TarefaDAO {
         return false;
     }
 
-    public static void atualizarTitulo(Tarefa tarefa, int id) {
+    public static void atualizarTitulo(String titulo, int id) {
         Connection connection = null;
         PreparedStatement st = null;
         String sql = "UPDATE tarefas SET Titulo = ? WHERE TarefaID = ?";
@@ -153,7 +155,7 @@ public class TarefaDAO {
             connection = DB.getConnection();
             st = connection.prepareStatement(sql);
 
-            st.setString(1, tarefa.getTitulo());
+            st.setString(1, titulo);
             st.setInt(2, id);
 
             st.executeUpdate();
@@ -163,7 +165,7 @@ public class TarefaDAO {
         }
     }
 
-    public static void atualizarDescricao(Tarefa tarefa, int id) {
+    public static void atualizarDescricao(String descricao, int id) {
         Connection connection = null;
         PreparedStatement st = null;
         String sql = "UPDATE tarefas SET Descrição = ? WHERE TarefaID = ?";
@@ -172,7 +174,7 @@ public class TarefaDAO {
             connection = DB.getConnection();
             st = connection.prepareStatement(sql);
 
-            st.setString(1, tarefa.getDescricao());
+            st.setString(1, descricao);
             st.setInt(2, id);
 
             st.executeUpdate();
@@ -182,7 +184,7 @@ public class TarefaDAO {
         }
     }
 
-    public static void atualizarPrioridade(Tarefa tarefa, int id) {
+    public static void atualizarPrioridade(Prioridade prioridade, int id) {
         Connection connection = null;
         PreparedStatement st = null;
         String sql = "UPDATE tarefas SET Prioridade = ? WHERE TarefaID = ?";
@@ -191,7 +193,7 @@ public class TarefaDAO {
             connection = DB.getConnection();
             st = connection.prepareStatement(sql);
 
-            st.setString(1, tarefa.getPrioridade().name());
+            st.setString(1, prioridade.name());
             st.setInt(2, id);
 
             st.executeUpdate();
@@ -201,7 +203,7 @@ public class TarefaDAO {
         }
     }
 
-    public static void atualizarDataLimite(Tarefa tarefa, int id) {
+    public static void atualizarDataLimite(LocalDate data, int id) {
         Connection connection = null;
         PreparedStatement st = null;
         String sql = "UPDATE tarefas SET DataLimite = ? WHERE TarefaID = ?";
@@ -210,7 +212,7 @@ public class TarefaDAO {
             connection = DB.getConnection();
             st = connection.prepareStatement(sql);
 
-            st.setDate(1, Date.valueOf(tarefa.getDataLimite()));
+            st.setDate(1, Date.valueOf(data));
             st.setInt(2, id);
 
             st.executeUpdate();
