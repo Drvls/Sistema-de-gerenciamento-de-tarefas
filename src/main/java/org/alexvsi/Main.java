@@ -1,5 +1,6 @@
 package org.alexvsi;
 
+import org.alexvsi.db.DbSetup;
 import org.alexvsi.enums.Coluna;
 import org.alexvsi.enums.Prioridade;
 import org.alexvsi.model.Tarefa;
@@ -11,9 +12,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Main {
-    public static final String numeroInvalido = "Você deve digitar um número válido\n";
+    public static final String numeroInvalido = "Você deve digitar um número válido";
 
     public static void main (String[] args){
+        DbSetup.criarDb();
+        DbSetup.criarTb();
         iniciarAplicacao();
     }
 
@@ -196,7 +199,7 @@ public class Main {
         int id = validarEntradaNumero(sc, "Você deve digitar um ID válido");
 
         if(TarefaDAO.constaNoBD(id)){
-            System.out.println("Tem certeza que deseja remover a tarefa " + id + "? (s/n)\n");
+            System.out.println("Tem certeza que deseja remover a tarefa " + id + "? (s/n)");
             char confirmacao = sc.next().charAt(0);
             if(confirmacao == 's' || confirmacao == 'S'){
                 TarefaDAO.removerTarefa(id);

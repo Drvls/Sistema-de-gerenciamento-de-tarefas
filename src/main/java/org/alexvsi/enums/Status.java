@@ -1,13 +1,17 @@
 package org.alexvsi.enums;
 
-public enum StatusTarefa {
+public enum Status {
     PENDENTE("Pendente"),
-    CONCLUIDO("Concluído");
+    CONCLUIDO("Concluido");
 
     private final String descricao;
 
-    StatusTarefa(String descricao){
+    Status(String descricao){
         this.descricao = descricao;
+    }
+
+    public String getDescricao(){
+        return this.descricao;
     }
 
     @Override

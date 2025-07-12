@@ -2,7 +2,7 @@ package org.alexvsi.enums;
 
 public enum Prioridade {
     ALTA("Alta"),
-    MEDIA("Média"),
+    MEDIA("Media"),
     BAIXA("Baixa");
 
     private final String descricao;

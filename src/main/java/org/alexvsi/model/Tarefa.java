@@ -1,7 +1,7 @@
 package org.alexvsi.model;
 
 import org.alexvsi.enums.Prioridade;
-import org.alexvsi.enums.StatusTarefa;
+import org.alexvsi.enums.Status;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +13,7 @@ public class Tarefa {
     private String descricao;
     private Prioridade prioridade;
     private LocalDate dataLimite;
-    private StatusTarefa statusTarefa;
+    private Status statusTarefa;
 
     // Constructor app > db
     public Tarefa(String titulo, String descricao, Prioridade prioridade, LocalDate dataLimite) {
@@ -21,7 +21,7 @@ public class Tarefa {
         this.descricao = descricao;
         this.prioridade = prioridade;
         this.dataLimite = dataLimite;
-        this.statusTarefa = StatusTarefa.PENDENTE;
+        this.statusTarefa = Status.PENDENTE;
     }
 
     // Constructor db > app
@@ -29,9 +29,9 @@ public class Tarefa {
         this.id = tarefaId;
         this.titulo = titulo;
         this.descricao = descricao;
-        this.prioridade = Prioridade.valueOf(prioridade);
+        this.prioridade = Prioridade.valueOf(prioridade.toUpperCase());
         this.dataLimite = data;
-        this.statusTarefa = status.equals("Pendente") ? StatusTarefa.PENDENTE : StatusTarefa.CONCLUIDO;
+        this.statusTarefa = Status.valueOf(status.toUpperCase());
     }
 
     public int getId(){
@@ -54,7 +54,7 @@ public class Tarefa {
         return dataLimite;
     }
 
-    public StatusTarefa getStatus(){
+    public Status getStatus(){
         return statusTarefa;
     }
 

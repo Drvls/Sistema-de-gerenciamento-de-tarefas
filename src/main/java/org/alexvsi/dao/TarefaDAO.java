@@ -1,8 +1,7 @@
 package org.alexvsi.dao;
 
 import org.alexvsi.enums.Coluna;
-import org.alexvsi.enums.Prioridade;
-import org.alexvsi.enums.StatusTarefa;
+import org.alexvsi.enums.Status;
 import org.alexvsi.model.Tarefa;
 import org.alexvsi.db.DB;
 
@@ -25,7 +24,7 @@ public class TarefaDAO {
             st.setString(2, tarefa.getDescricao());
             st.setString(3, tarefa.getPrioridade().getDescricao());
             st.setDate(4, Date.valueOf(tarefa.getDataLimite()));
-            st.setString(5, tarefa.getStatus().name());
+            st.setString(5, tarefa.getStatus().getDescricao());
 
             st.executeUpdate();
         }
@@ -49,7 +48,7 @@ public class TarefaDAO {
                         rs.getString("Descrição"),
                         rs.getString("Prioridade"),
                         rs.getDate("DataLimite").toLocalDate(),
-                        rs.getString("status")
+                        rs.getString("Status")
                 ));
             }
 
@@ -75,13 +74,13 @@ public class TarefaDAO {
     }
 
     public static void concluirTarefa(int id){
-        String sql = "UPDATE tarefas SET status = ? WHERE TarefaID = ?";
+        String sql = "UPDATE tarefas SET Status = ? WHERE TarefaID = ?";
 
         try(
                 Connection connection = DB.getConnection();
                 PreparedStatement st = connection.prepareStatement(sql);
                 ){
-            st.setString(1, StatusTarefa.CONCLUIDO.name());
+            st.setString(1, Status.CONCLUIDO.name());
             st.setInt(2, id);
             st.executeUpdate();
         }
@@ -92,9 +91,9 @@ public class TarefaDAO {
 
     public static int[] mostrarEstatisticas(){
         String sql = "SELECT " +
-                "COUNT(status) as Total, " +
-                "COUNT(CASE WHEN status = 'Concluído' THEN 1 END) as Completo, " +
-                "COUNT(CASE WHEN status = 'Pendente' THEN 1 END) as Incompleto, " +
+                "COUNT(Status) as Total, " +
+                "COUNT(CASE WHEN Status = 'Concluído' THEN 1 END) as Completo, " +
+                "COUNT(CASE WHEN Status = 'Pendente' THEN 1 END) as Incompleto, " +
                 "COUNT(CASE WHEN Prioridade = 'Alta' THEN 1 END) as AltaPrioridade " +
                 "FROM tarefas";
 

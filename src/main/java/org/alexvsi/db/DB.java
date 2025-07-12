@@ -8,8 +8,20 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DB {
+    public static Connection getRootConnection() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/?useSSL=false";
+        Properties props = new Properties();
+        try(FileInputStream fs = new FileInputStream("db.properties")){
+            props.load(fs);
+        }
+        catch (IOException e){
+            throw new DbException(e.getMessage());
+        }
+        return DriverManager.getConnection(url, props);
+    }
+
     public static Connection getConnection(){
-        Connection connection = null;
+        Connection connection;
         try{
             Properties props = loadProperties();
             String url = props.getProperty("dburl");
