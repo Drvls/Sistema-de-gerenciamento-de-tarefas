@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Main {
+    public static final String numeroInvalido = "Você deve digitar um número válido\n";
+
     public static void main (String[] args){
         iniciarAplicacao();
     }
@@ -29,7 +31,7 @@ public class Main {
             System.out.println("[6] Estatísticas");
             System.out.println("[0] Sair do programa");
 
-            int opcao = validarEntradaNumero(sc,"Você deve digitar um número válido");
+            int opcao = validarEntradaNumero(sc,numeroInvalido);
             switch (opcao) {
                 case 1:
                     adicionarTarefa(sc);
@@ -75,7 +77,7 @@ public class Main {
         System.out.println("[2] Média prioridade");
         System.out.println("[3] Baixa prioridade");
 
-        int opcaoPrioridade = validarEntradaNumero(sc, "Você deve digitar um número válido");
+        int opcaoPrioridade = validarEntradaNumero(sc, numeroInvalido);
         switch(opcaoPrioridade){
             case 1:
                 prioridade = Prioridade.ALTA;
@@ -136,7 +138,7 @@ public class Main {
 
     public static void editarTarefa(Scanner sc){
         System.out.println("\nDigite o ID da tarefa que deseja editar");
-        int id = validarEntradaNumero(sc, "Deve digitar um número válido");
+        int id = validarEntradaNumero(sc, numeroInvalido);
         if(TarefaDAO.constaNoBD(id)){
             boolean loop = true;
             while(loop){
@@ -148,7 +150,7 @@ public class Main {
                 System.out.println("[5] Editar toda a tarefa");
                 System.out.println("\n[0] voltar");
 
-                int opcao = validarEntradaNumero(sc, "Deve digitar um número válido");
+                int opcao = validarEntradaNumero(sc, numeroInvalido);
                 switch (opcao){
                     case 1:
                         editarTitulo(sc, id);
@@ -174,20 +176,35 @@ public class Main {
             }
         }
         else{
-            System.out.println("O ID informado não pertence a nenhuma tarefa registrada");
+            System.out.println("Nenhuma tarefa encontrada com ID " + id + "\n");
         }
     }
 
     public static void concluirTarefa(Scanner sc){
         System.out.println("Informe o ID da tarefa que deseja concluir");
         int id = validarEntradaNumero(sc,"Você deve digitar um ID válido");
-        TarefaDAO.concluirTarefa(id);
+        if(TarefaDAO.constaNoBD(id)){
+            TarefaDAO.concluirTarefa(id);
+        }
+        else{
+            System.out.println("Nenhuma tarefa encontrada com ID " + id + "\n");
+        }
     }
 
     public static void removerTarefa(Scanner sc){
         System.out.println("Informe o ID da tarefa que deseja remover");
         int id = validarEntradaNumero(sc, "Você deve digitar um ID válido");
-        TarefaDAO.removerTarefa(id);
+
+        if(TarefaDAO.constaNoBD(id)){
+            System.out.println("Tem certeza que deseja remover a tarefa " + id + "? (s/n)\n");
+            char confirmacao = sc.next().charAt(0);
+            if(confirmacao == 's' || confirmacao == 'S'){
+                TarefaDAO.removerTarefa(id);
+            }
+        }
+        else{
+            System.out.println("Nenhuma tarefa encontrada com ID " + id + "\n");
+        }
     }
 
     public static void mostrarEstatisticas(){
@@ -218,7 +235,7 @@ public class Main {
     public static void editarTitulo(Scanner sc, int id){
         System.out.println("\nDigite o novo título da tarefa");
         String titulo = sc.nextLine();
-        
+
         TarefaDAO.atualizar(Coluna.TITULO, titulo, id);
         System.out.println("\nTítulo de tarefa atualizado\n");
     }
@@ -238,7 +255,7 @@ public class Main {
         System.out.println("[2] Média prioridade");
         System.out.println("[3] Baixa prioridade");
 
-        int opcaoPrioridade = validarEntradaNumero(sc, "Você deve digitar um número válido");
+        int opcaoPrioridade = validarEntradaNumero(sc, numeroInvalido);
         switch(opcaoPrioridade){
             case 1:
                 prioridade = Prioridade.ALTA;

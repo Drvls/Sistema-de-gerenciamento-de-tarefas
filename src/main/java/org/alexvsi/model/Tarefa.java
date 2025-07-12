@@ -31,7 +31,7 @@ public class Tarefa {
         this.descricao = descricao;
         this.prioridade = Prioridade.valueOf(prioridade);
         this.dataLimite = data;
-        this.statusTarefa = StatusTarefa.valueOf(status);
+        this.statusTarefa = status.equals("Pendente") ? StatusTarefa.PENDENTE : StatusTarefa.CONCLUIDO;
     }
 
     public int getId(){

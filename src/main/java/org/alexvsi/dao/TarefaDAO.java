@@ -14,19 +14,18 @@ import java.util.List;
 public class TarefaDAO {
     public static void adicionarTarefa(Tarefa tarefa){
         String sql = "INSERT INTO tarefas "
-                + "(TarefaId, Titulo, Descrição, Prioridade, DataLimite, Status) "
+                + "( Titulo, Descrição, Prioridade, DataLimite, Status) "
                 + "VALUES "
-                + "(?, ?, ?, ?, ?, ?)";
+                + "(?, ?, ?, ?, ?)";
         try(
                 Connection connection = DB.getConnection();
                 PreparedStatement st = connection.prepareStatement(sql);
                 ){
-            st.setInt(1, tarefa.getId());
-            st.setString(2, tarefa.getTitulo());
-            st.setString(3, tarefa.getDescricao());
-            st.setString(4, tarefa.getPrioridade().name());
-            st.setDate(5, Date.valueOf(tarefa.getDataLimite()));
-            st.setString(6, tarefa.getStatus().name());
+            st.setString(1, tarefa.getTitulo());
+            st.setString(2, tarefa.getDescricao());
+            st.setString(3, tarefa.getPrioridade().getDescricao());
+            st.setDate(4, Date.valueOf(tarefa.getDataLimite()));
+            st.setString(5, tarefa.getStatus().name());
 
             st.executeUpdate();
         }
@@ -94,9 +93,9 @@ public class TarefaDAO {
     public static int[] mostrarEstatisticas(){
         String sql = "SELECT " +
                 "COUNT(status) as Total, " +
-                "COUNT(CASE WHEN status = 'concluido' THEN 1 END) as Completo, " +
-                "COUNT(CASE WHEN status = 'pendente' THEN 1 END) as Incompleto, " +
-                "COUNT(CASE WHEN Prioridade = 'ALTA' THEN 1 END) as AltaPrioridade " +
+                "COUNT(CASE WHEN status = 'Concluído' THEN 1 END) as Completo, " +
+                "COUNT(CASE WHEN status = 'Pendente' THEN 1 END) as Incompleto, " +
+                "COUNT(CASE WHEN Prioridade = 'Alta' THEN 1 END) as AltaPrioridade " +
                 "FROM tarefas";
 
         int[] dados = new int[4];
@@ -134,73 +133,7 @@ public class TarefaDAO {
         return false;
     }
 
-    public static void atualizarTitulo(String titulo, int id) {
-        String sql = "UPDATE tarefas SET Titulo = ? WHERE TarefaID = ?";
-
-        try (
-                Connection connection = DB.getConnection();
-                PreparedStatement st = connection.prepareStatement(sql);
-                ){
-            st.setString(1, titulo);
-            st.setInt(2, id);
-
-            st.executeUpdate();
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    public static void atualizarDescricao(String descricao, int id) {
-        String sql = "UPDATE tarefas SET Descrição = ? WHERE TarefaID = ?";
-
-        try (
-                Connection connection = DB.getConnection();
-                PreparedStatement st = connection.prepareStatement(sql);
-                ){
-            st.setString(1, descricao);
-            st.setInt(2, id);
-
-            st.executeUpdate();
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    public static void atualizarPrioridade(Prioridade prioridade, int id) {
-        String sql = "UPDATE tarefas SET Prioridade = ? WHERE TarefaID = ?";
-        try (
-                Connection connection = DB.getConnection();
-                PreparedStatement st = connection.prepareStatement(sql);
-                ){
-            st.setString(1, prioridade.name());
-            st.setInt(2, id);
-
-            st.executeUpdate();
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    public static void atualizarDataLimite(LocalDate data, int id) {
-        String sql = "UPDATE tarefas SET DataLimite = ? WHERE TarefaID = ?";
-
-        try (
-                Connection connection = DB.getConnection();
-                PreparedStatement st = connection.prepareStatement(sql);
-                ){
-            st.setDate(1, Date.valueOf(data));
-            st.setInt(2, id);
-
-            st.executeUpdate();
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
+    // DRY
     public static void atualizar(Coluna coluna, Object valor, int id) {
         String sql = "UPDATE tarefas SET " + coluna.getDescricao() + " = ? WHERE TarefaID = ?";
 
