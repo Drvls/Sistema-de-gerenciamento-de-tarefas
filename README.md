@@ -61,12 +61,12 @@ Após executar, siga as instruções no terminal:
 
 ## ⏳ Atualizações futuras
 
-✅ Corrigir saída de datas
-✅ Validação de entradas
-✅ Banco de dados com criação automática
-❌ Importação/exportação JSON e TXT
-❌ Definir caminho para exportação
-❌ Verificar duplicidade de arquivo exportado
+- ✅ Corrigir saída de datas
+- ✅ Validação de entradas
+- ✅ Banco de dados com criação automática
+- ❌ Importação/exportação JSON e TXT
+- ❌ Definir caminho para exportação
+- ❌ Verificar duplicidade de arquivo exportado
 
 ---
 
