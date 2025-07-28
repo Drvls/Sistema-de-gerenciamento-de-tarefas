@@ -18,7 +18,7 @@ public class TarefaDAO {
                 + "(?, ?, ?, ?, ?)";
         try(
                 Connection connection = DB.getConnection();
-                PreparedStatement st = connection.prepareStatement(sql);
+                PreparedStatement st = connection.prepareStatement(sql)
                 ){
             st.setString(1, tarefa.getTitulo());
             st.setString(2, tarefa.getDescricao());
@@ -40,7 +40,7 @@ public class TarefaDAO {
         try(
                 Connection connection = DB.getConnection();
                 Statement st = connection.createStatement();
-                ResultSet rs = st.executeQuery(sql);
+                ResultSet rs = st.executeQuery(sql)
                 ){
             while(rs.next()){
                 tarefas.add(new Tarefa(rs.getInt("TarefaID"),
@@ -64,7 +64,7 @@ public class TarefaDAO {
 
         try(
                 Connection connection = DB.getConnection();
-                PreparedStatement st = connection.prepareStatement(sql);
+                PreparedStatement st = connection.prepareStatement(sql)
                 ){
             st.setInt(1, id);
             st.executeUpdate();
@@ -78,7 +78,7 @@ public class TarefaDAO {
 
         try(
                 Connection connection = DB.getConnection();
-                PreparedStatement st = connection.prepareStatement(sql);
+                PreparedStatement st = connection.prepareStatement(sql)
                 ){
             st.setString(1, Status.CONCLUIDO.name());
             st.setInt(2, id);
@@ -101,7 +101,7 @@ public class TarefaDAO {
         try(
                 Connection connection = DB.getConnection();
                 Statement st = connection.createStatement();
-                ResultSet rs = st.executeQuery(sql);
+                ResultSet rs = st.executeQuery(sql)
                 ){
             while(rs.next()){
                 dados[0] = rs.getInt("Total");
@@ -138,7 +138,7 @@ public class TarefaDAO {
 
         try (
                 Connection connection = DB.getConnection();
-                PreparedStatement st = connection.prepareStatement(sql);
+                PreparedStatement st = connection.prepareStatement(sql)
         ) {
             if (valor instanceof String) {
                 st.setString(1, (String) valor);
