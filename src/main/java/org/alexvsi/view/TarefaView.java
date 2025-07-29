@@ -27,7 +27,7 @@ public class TarefaView {
         }
     }
 
-    public String mostrarMenu(){
+    public void mostrarMenu(){
         System.out.println("\nEscolha umas das opções abaixo");
         System.out.println("[1] Adicionar uma nova tarefa");
         System.out.println("[2] Listar tarefas existentes");
@@ -37,7 +37,6 @@ public class TarefaView {
         System.out.println("[6] Estatísticas");
         System.out.println("[0] Sair do programa");
 
-        return sc.nextLine();
     }
 
     public String mostrarMenuEditar(){

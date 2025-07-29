@@ -19,10 +19,12 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         TarefaController controller = new TarefaController();
         TarefaView view = new TarefaView();
-        boolean rodando = true;
 
-        while(rodando) {
-            int opcao = controller.validarEntradaNumero(view.mostrarMenu());
+        int opcao;
+        do{
+            view.mostrarMenu();
+            opcao = controller.validarEntradaNumero(sc.nextLine());
+
             switch (opcao) {
                 case 1: // Adicionar tarefa
                     String titulo = view.solicitarTitulo();
@@ -77,13 +79,13 @@ public class Main {
                     break;
                 case 0: // Saida
                     System.out.println("Obrigado por utilizar nosso programa.");
-                    rodando = false;
                     break;
                 default:
-                    System.out.println("Você deve escolher uma opção de 1 a 6");
+                    System.out.println("\nVocê deve escolher uma opção de 1 a 6");
                     break;
             }
         }
+        while(opcao != 0);
         sc.close();
     }
 }

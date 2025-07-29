@@ -14,13 +14,12 @@ public class TarefaController {
     private final TarefaView view = new TarefaView();
 
     public int validarEntradaNumero(String entradaNumero){
-        while(true){
-            if(entradaNumero.matches("\\d+")){
-                return Integer.parseInt(entradaNumero);
-            }
-            else{
-                view.mostrarMensagem(view.numeroInvalido);
-            }
+        if(entradaNumero.matches("\\d+")){
+            return Integer.parseInt(entradaNumero);
+        }
+        else{
+            view.mostrarMensagem(view.numeroInvalido);
+            return -1;
         }
     }
 
