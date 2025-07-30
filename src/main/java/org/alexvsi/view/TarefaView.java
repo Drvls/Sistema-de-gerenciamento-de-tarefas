@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class TarefaView {
     private final Scanner sc = new Scanner(System.in);
-    public final String numeroInvalido = "Você deve digitar um número válido"; // controller ou manter main?
+    public final String numeroInvalido = "Você deve digitar um número válido";
 
     public void mostrarMensagem(String msg){
         System.out.println(msg);
@@ -36,7 +36,6 @@ public class TarefaView {
         System.out.println("[5] Remover tarefa");
         System.out.println("[6] Estatísticas");
         System.out.println("[0] Sair do programa");
-
     }
 
     public String mostrarMenuEditar(){
@@ -52,17 +51,17 @@ public class TarefaView {
     }
 
     public String solicitarTitulo(){
-        System.out.println("Informe o título da tarefa");
+        System.out.println("\nInforme o título da tarefa");
         return sc.nextLine();
     }
 
     public String solicitarDescricao(){
-        System.out.println("Informe a descrição da tarefa");
+        System.out.println("\nInforme a descrição da tarefa");
         return sc.nextLine();
     }
 
     public String solicitarPrioridade(){
-        System.out.println("Informe a prioridade da tarefa");
+        System.out.println("\nInforme a prioridade da tarefa");
         System.out.println("[1] Alta prioridade");
         System.out.println("[2] Média prioridade");
         System.out.println("[3] Baixa prioridade");
@@ -70,7 +69,7 @@ public class TarefaView {
     }
 
     public String solicitarData(){
-        System.out.println("Informe a data limite da tarefa (ex: 25/06/2025)");
+        System.out.println("\nInforme a data limite da tarefa (ex: 25/06/2025)");
         return sc.nextLine();
     }
 

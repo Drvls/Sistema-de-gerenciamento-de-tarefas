@@ -36,20 +36,21 @@ public class TarefaController {
                     return data;
                 }
                 else{
-                    view.mostrarMensagem("A data deve ser a partir de hoje");
+                    view.mostrarMensagem("\nA data deve ser a partir de hoje");
                 }
             }
             else{
-                view.mostrarMensagem("Deve inserir uma data válida");
+                view.mostrarMensagem("\nDeve inserir uma data válida");
             }
         }
         while(true);
     }
 
     public Prioridade validarPrioridade(){
-        int opcao = validarEntradaNumero(view.solicitarPrioridade());
+        int opcao;
         Prioridade prioridade = null;
-        while(prioridade == null){
+        do{
+            opcao = validarEntradaNumero(view.solicitarPrioridade());
             switch(opcao){
                 case 1:
                     prioridade = Prioridade.ALTA;
@@ -61,10 +62,11 @@ public class TarefaController {
                     prioridade = Prioridade.BAIXA;
                     break;
                 default:
-                    view.mostrarMensagem("Deve escolher entre 1 a 3\n");
+                    view.mostrarMensagem("\nDeve escolher entre 1 a 3");
                     break;
             }
         }
+        while(prioridade == null);
         return prioridade;
     }
 
@@ -89,7 +91,7 @@ public class TarefaController {
         }
         else{
             view.mostrarMensagem("Nenhuma tarefa encontrada com ID " + id + "\n");
-            return 0;
+            return -1;
         }
     }
 

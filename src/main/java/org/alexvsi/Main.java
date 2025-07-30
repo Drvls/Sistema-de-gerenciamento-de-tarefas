@@ -38,10 +38,16 @@ public class Main {
                     controller.listarTarefas();
                     break;
                 case 3: // Editar tarefa existente
-                    boolean loop = true;
-                    int id = controller.validarEntradaNumero(view.solicitarId());
-                    int opcaoEdit = controller.editarTarefa(id);
+                    int opcaoEdit;
+
                     do{
+                        int id = -1;
+                        do {
+                            id = controller.validarEntradaNumero(view.solicitarId());
+                        }
+                        while(id <= -1);
+
+                        opcaoEdit = controller.editarTarefa(id);
                         switch(opcaoEdit){
                             case 1: // Titulo
                                 controller.editarTitulo(id);
@@ -59,14 +65,13 @@ public class Main {
                                 controller.editarTudo(id);
                                 break;
                             case 0: // Saida
-                                loop = false;
                                 break;
                             default:
                                 view.mostrarMensagem("Deve escolher uma das opções acima");
                                 break;
                         }
                     }
-                    while(loop);
+                    while(opcaoEdit != 0);
                     break;
                 case 4: // Marcar tarefa como concluida
                     controller.concluirTarefa();

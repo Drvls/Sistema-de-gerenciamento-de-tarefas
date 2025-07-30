@@ -80,7 +80,7 @@ public class TarefaDAO {
                 Connection connection = DB.getConnection();
                 PreparedStatement st = connection.prepareStatement(sql)
                 ){
-            st.setString(1, Status.CONCLUIDO.name());
+            st.setString(1, Status.CONCLUIDO.getDescricao());
             st.setInt(2, id);
             st.executeUpdate();
         }
